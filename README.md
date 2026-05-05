@@ -73,7 +73,7 @@ The **Local Black Swan Stress-Tester** is organized into logical modules that se
 * **`capstone_report.py`**: Consolidates results from all simulations to generate a final executive summary of the stress test findings.
 * **`visualzation.py`**: Generates comparative plots (histograms and time-series) to visualize the "Resilience Gap" between baseline and stressed states.
 * **`README.md`**: Project documentation, architecture overview, and setup instructions.
-* **`pyvenv.cfg`**: Configuration file for the Python virtual environment (ensures dependency isolation for Pandas and NumPy).
+
 
 
 ## File Structure Overview
