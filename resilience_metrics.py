@@ -1,5 +1,5 @@
 import pandas as pd
-
+import numpy as np
 # Load your simulation results
 stress = pd.read_csv('stress_results.csv')
 resilient = pd.read_csv('resilient_results.csv')
@@ -40,3 +40,20 @@ tts_r, ttr_r = calculate_resilience(resilient)
 print(f"--- RESILIENCE METRICS ---")
 print(f"STRESSED: TTS = {tts_s} days, TTR = {ttr_s} days")
 print(f"RESILIENT: TTS = {tts_r if tts_r > 0 else 'Infinite'} days, TTR = {ttr_r} days")
+
+# Load your stress test results
+df_stress = pd.read_csv('stress_results.csv')
+
+# Step 1: Define your Cost per Day of Delay (e.g., $5,000 per day in lost sales/fees)
+cost_per_day = 5000 
+
+# Step 2: Calculate the financial loss for every simulated day
+# This creates a distribution of potential losses
+losses = df_stress['simulated_lead_time'] * cost_per_day
+
+# Step 3: Calculate VaR at 95% Confidence
+# This finds the "cutoff" where 95% of losses are below this number
+var_95 = np.percentile(losses, 95)
+
+print(f"95% Value at Risk (VaR): ${var_95:,.2f}")
+print(f"Meaning: In a Black Swan event, we are 95% sure our loss won't exceed ${var_95:,.2f}")
