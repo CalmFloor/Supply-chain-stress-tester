@@ -1,15 +1,3 @@
-## File Structure Overview
-
-| File | Description |
-| :--- | :--- |
-| **normal_sim.py** | Generates baseline operational data. |
-| **stress_test_gen.py** | Uses Ollama to generate AI disaster scenarios. |
-| **stress_test_sim.py** | Simulates the impact of the Black Swan event. |
-| **resilient_sim.py** | Simulates the supply chain with mitigation active. |
-| **resilience_metrics.py** | Calculates TTS, TTR, and VaR. |
-| **visualzation.py** | Creates charts for Baseline vs. Stressed vs. Mitigated. |
-| ***.json** | Configuration and AI-generated profiles. |
-| ***.csv** | Output data from the various simulation stages. |
 # Supply-chain-stress-tester
 Local Black Swan Stress-Tester is a privacy-first AI "flight simulator" for supply chains. Using Ollama and Monte Carlo simulations, it transforms qualitative disaster scenarios into quantitative risk metrics like TTS and VaR. By stress-testing a digital twin offline, it empowers companies to build data-driven resilience.
 ## Local Black Swan Stress-Tester
@@ -59,3 +47,50 @@ The system is built on a structural separation between qualitative "reasoned" ch
 ### Dataset References
 * **DataCo Smart Supply Chain:** Provisioning, production, and sales data (180k+ records).
 * **Global Supply Chain Disruption:** Historical memory of trade route shocks (10k+ records).
+
+### Project File Directory
+
+The **Local Black Swan Stress-Tester** is organized into logical modules that separate data establishmebt, AI scenario generation, and statistical simulation. Below is a description of the files included in this repository:
+
+---
+
+#### 📦 Core Logic & Simulations
+* **`normal_sim.py`**: Establishes the operational "Ground Truth." It calculates baseline mean and standard deviation from the DataCo dataset and generates `baseline_results.csv`.
+* **`stress_test_gen.py`**: The **"Chaos Engine."** Connects to the local Llama 3 model via Ollama to generate the qualitative disaster narrative and the structured `black_swan_profile.json`.
+* **`stress_test_sim.py`**: The **"Impact Engine."** Ingests the AI’s disaster profile and applies multipliers to the baseline data to simulate supply chain failure.
+* **`resilient_sim.py`**: Evaluates the defense strategy. It applies the risk reduction factors from `mitigation_strategy.json` to show how lead times stabilize under protected conditions.
+* **`resilience_metrics.py`**: The analytical core. Calculates final KPIs like **Time-to-Survive (TTS)**, **Time-to-Recover (TTR)**, and **Value at Risk (VaR)**.
+* **`supply.py`**: Utility script containing helper functions for data cleaning and loading the DataCo Smart Supply Chain dataset.
+
+#### 📊 Data & Configuration (JSON/CSV)
+* **`baseline_results.csv`**: Data showing standard, non-disrupted shipping performance.
+* **`stress_results.csv`**: Data showing the chaotic lead-time swings during a Black Swan event.
+* **`resilient_results.csv`**: Data showing the dampened, recovered lead times after applying mitigation strategies.
+* **`black_swan_profile.json`**: The machine-readable output from the AI (e.g., event duration, delay multipliers).
+* **`mitigation_strategy.json`**: User-defined parameters for how the system should defend against a crisis (e.g., safety stock levels).
+
+#### 🛠️ Reporting & Infrastructure
+* **`capstone_report.py`**: Consolidates results from all simulations to generate a final executive summary of the stress test findings.
+* **`visualzation.py`**: Generates comparative plots (histograms and time-series) to visualize the "Resilience Gap" between baseline and stressed states.
+* **`README.md`**: Project documentation, architecture overview, and setup instructions.
+* **`pyvenv.cfg`**: Configuration file for the Python virtual environment (ensures dependency isolation for Pandas and NumPy).
+
+---
+
+### Update README.md
+To update your README, you can paste this into your file to ensure it reflects your full file structure:
+
+```markdown
+## File Structure Overview
+
+| File | Description |
+| :--- | :--- |
+| **normal_sim.py** | Generates baseline operational data. |
+| **stress_test_gen.py** | Uses Ollama to generate AI disaster scenarios. |
+| **stress_test_sim.py** | Simulates the impact of the Black Swan event. |
+| **resilient_sim.py** | Simulates the supply chain with mitigation active. |
+| **resilience_metrics.py** | Calculates TTS, TTR, and VaR. |
+| **visualzation.py** | Creates charts for Baseline vs. Stressed vs. Mitigated. |
+| ***.json** | Configuration and AI-generated profiles. |
+| ***.csv** | Output data from the various simulation stages. |
+```
