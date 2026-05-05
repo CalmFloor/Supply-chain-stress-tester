@@ -75,12 +75,7 @@ The **Local Black Swan Stress-Tester** is organized into logical modules that se
 * **`README.md`**: Project documentation, architecture overview, and setup instructions.
 * **`pyvenv.cfg`**: Configuration file for the Python virtual environment (ensures dependency isolation for Pandas and NumPy).
 
----
 
-### Update README.md
-To update your README, you can paste this into your file to ensure it reflects your full file structure:
-
-```markdown
 ## File Structure Overview
 
 | File | Description |
@@ -93,4 +88,3 @@ To update your README, you can paste this into your file to ensure it reflects y
 | **visualzation.py** | Creates charts for Baseline vs. Stressed vs. Mitigated. |
 | ***.json** | Configuration and AI-generated profiles. |
 | ***.csv** | Output data from the various simulation stages. |
-```
