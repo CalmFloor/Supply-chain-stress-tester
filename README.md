@@ -62,6 +62,12 @@ The **Local Black Swan Stress-Tester** is organized into logical modules that se
 * **`resilience_metrics.py`**: The analytical core. Calculates final KPIs like **Time-to-Survive (TTS)**, **Time-to-Recover (TTR)**, and **Value at Risk (VaR)**.
 * **`supply.py`**: Utility script containing helper functions for data cleaning and loading the DataCo Smart Supply Chain dataset.
 
+--- RUNNING 1000 MONTE CARLO TRIALS ---
+
+--- FINAL RESULTS ---
+Across 1,000 simulations, the average lead time is: 5.39 days
+The worst-case average seen in a single trial was: 12.51 days
+
 #### 📊 Data & Configuration (JSON/CSV)
 * **`baseline_results.csv`**: Data showing standard, non-disrupted shipping performance.
 * **`stress_results.csv`**: Data showing the chaotic lead-time swings during a Black Swan event.

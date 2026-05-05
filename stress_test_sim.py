@@ -2,41 +2,48 @@ import pandas as pd
 import numpy as np
 import json
 
-# 1. Load your baseline data and the AI's disaster profile
+# 1. Load data
 df = pd.read_csv('DataCoSmartSupplyChainData.csv', encoding='ISO-8859-1')
 
 with open('black_swan_profile.json', 'r') as f:
     disaster = json.load(f)
 
-def run_stress_simulation():
-    # Get baseline stats from the original data
+def run_monte_carlo_stress(num_trials=1000):
     real_days_col = 'Days for shipping (real)'
     lead_time_mu = df[real_days_col].mean()
     lead_time_sigma = df[real_days_col].std()
     
-    # 2. Apply the AI's "Mutators"
-    # We multiply the standard deviation by the AI's multiplier to simulate chaos
     stressed_sigma = lead_time_sigma * disaster['delay_multiplier']
     duration = disaster['event_duration_days']
     
-    print(f"--- STRESS TEST STARTING: {disaster['scenario_name']} ---")
-    print(f"Injecting {disaster['delay_multiplier']}x variance for {duration} days...")
+    print(f"--- RUNNING {num_trials} MONTE CARLO TRIALS ---")
+    
+    all_trial_results = []
 
-    results = []
-    for day in range(duration):
-        # Generate much more volatile delays
-        simulated_delay = np.random.normal(lead_time_mu, stressed_sigma)
+    for trial in range(num_trials):
+        trial_latencies = []
+        for day in range(duration):
+            simulated_delay = np.random.normal(lead_time_mu, stressed_sigma)
+            trial_latencies.append(max(0, simulated_delay))
         
-        results.append({
-            "day": day + 1,
-            "simulated_lead_time": max(0, simulated_delay),
-            "status": "STRESSED",
+        # Capture the mean lead time for this specific trial
+        all_trial_results.append({
+            "trial_id": trial + 1,
+            "avg_lead_time": np.mean(trial_latencies),
+            "max_delay": np.max(trial_latencies),
             "scenario": disaster['scenario_name']
         })
         
-    return pd.DataFrame(results)
+    return pd.DataFrame(all_trial_results)
 
-# 3. Run and save the "After" picture
-stress_df = run_stress_simulation()
-stress_df.to_csv('stress_results.csv', index=False)
-print("\nStress Simulation Complete. Results saved to 'stress_results.csv'")
+# 3. Run and Analyze
+trials_df = run_monte_carlo_stress(num_trials=1000)
+
+# Calculate the Global Mean across all trials
+global_mean = trials_df['avg_lead_time'].mean()
+print(f"\n--- FINAL RESULTS ---")
+print(f"Across 1,000 simulations, the average lead time is: {global_mean:.2f} days")
+print(f"The worst-case average seen in a single trial was: {trials_df['avg_lead_time'].max():.2f} days")
+
+# Save summary
+trials_df.to_csv('stress_mc_summary.csv', index=False)
