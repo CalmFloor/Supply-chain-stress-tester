@@ -1,3 +1,15 @@
+## File Structure Overview
+
+| File | Description |
+| :--- | :--- |
+| **normal_sim.py** | Generates baseline operational data. |
+| **stress_test_gen.py** | Uses Ollama to generate AI disaster scenarios. |
+| **stress_test_sim.py** | Simulates the impact of the Black Swan event. |
+| **resilient_sim.py** | Simulates the supply chain with mitigation active. |
+| **resilience_metrics.py** | Calculates TTS, TTR, and VaR. |
+| **visualzation.py** | Creates charts for Baseline vs. Stressed vs. Mitigated. |
+| ***.json** | Configuration and AI-generated profiles. |
+| ***.csv** | Output data from the various simulation stages. |
 # Supply-chain-stress-tester
 Local Black Swan Stress-Tester is a privacy-first AI "flight simulator" for supply chains. Using Ollama and Monte Carlo simulations, it transforms qualitative disaster scenarios into quantitative risk metrics like TTS and VaR. By stress-testing a digital twin offline, it empowers companies to build data-driven resilience.
 ## Local Black Swan Stress-Tester
