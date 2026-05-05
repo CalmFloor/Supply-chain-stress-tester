@@ -1,0 +1,6 @@
+{
+    "strategy_name": "Megafire-Delay-Tolerant Supply Chain",
+    "stock_increase_pct": 0.25,
+    "alternate_route_cost_increase": 0.15,
+    "risk_reduction_factor": 0.45
+}

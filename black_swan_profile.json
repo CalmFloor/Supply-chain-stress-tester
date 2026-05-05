@@ -1,0 +1,7 @@
+{
+    "scenario_name": "Southeast Asia's Megafire",
+    "disruption_type": "Physical",
+    "delay_multiplier": 5.2,
+    "capacity_loss": 0.6,
+    "event_duration_days": 14
+}
